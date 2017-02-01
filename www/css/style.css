@@ -1,0 +1,51 @@
+.marketing {
+	font-size: 18px;
+}
+nav {
+	background-color: #336699 !important;
+	border-bottom: 3px #6699cc solid;
+	color: black;
+	font-size: 14px;
+}
+.nav-link:hover, .navlink:active, .navbar-brand:hover, .navbar-brand:active, .nav-link-active{
+	color: #8e8e8e;
+	text-shadow: black 0 0 5px;
+}
+a:hover, a:active {
+	text-decoration: none;
+	color: #336699;
+	text-shadow: grey 0 0 1px;
+}
+.jumbotron {
+	background-color: transparent !important;
+	background-image: url("../images/bg_head.png");
+}
+.featurette-divider {
+	border-top: 1px solid rgb(102, 153, 204) !important;
+}
+.container{
+	margin-top: 6em;
+}
+footer {
+	text-align: center;
+	font-size: 14px;
+}
+.alert {
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+.alert-danger {
+	border: solid 1px #dc9035;
+	background-color: #fdf58a;
+	color: #CC0000;
+	text-shadow: #FFAFAF 1px 1px 3px;
+}
+
+.alert-info {
+	border: solid 1px rgba(119, 170, 220, 0.7);
+	background-color: rgba(59, 121, 255, 0.11);
+	color: rgba(8, 13, 114, 0.79);
+	text-shadow: rgba(54, 72, 255, 0.58) 1px 1px 1px;
+}
