@@ -13,4 +13,5 @@ $(function(){
 
 
         $(".fancybox").fancybox();
+    $.nette.init();
 });

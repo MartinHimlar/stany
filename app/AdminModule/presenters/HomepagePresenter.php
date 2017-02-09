@@ -6,9 +6,9 @@ use App\SiteNotAddedException;
 use App\SiteNotFoundException;
 use Nette;
 use Nette\Application\UI\Form;
-use Sites\CarouselManager;
 use Sites\SiteRepository;
 use Tracy\Debugger;
+use Ublaboo\DataGrid\DataGrid;
 
 class HomepagePresenter extends BasePresenter
 {
@@ -46,10 +46,10 @@ class HomepagePresenter extends BasePresenter
 
 	public function actionOther()
 	{
-		$factory = new SitesGridFactory();
+		/*$factory = new SitesGridFactory();
 		$dataSource = new SitesGridDataSource($this->sites);
 		$this->addComponent($factory->create($dataSource), 'sites');
-		$this->redrawControl('sites');
+		$this->redrawControl('sites');*/
 	}
 
 	public function actionDeleteOther($id)
@@ -68,7 +68,6 @@ class HomepagePresenter extends BasePresenter
 	{
 		$this['siteForm']['url']->setValue($siteUrl);
 		$this->redrawControl('formInput');
-		$this->invalidateControl('formInput');
 	}
 
 	public function createComponentSiteForm()
@@ -109,6 +108,7 @@ class HomepagePresenter extends BasePresenter
 				$this->sites->update($values);
 				$this->flashMessage('Stránka úspěšně upravena', 'success');
 			} else {
+			    unset($values['id']);
 				$this->sites->add($values);
 				$this->flashMessage('Stránka úspěšně vytvořena', 'success');
 			}
@@ -120,4 +120,15 @@ class HomepagePresenter extends BasePresenter
 			$this->redirect('this');
 		}
 	}
+
+	protected function createComponentSitesGrid($name)
+    {
+        $grid = new DataGrid($this, $name);
+        $grid->setPrimaryKey('id');
+        $grid->setDataSource($this->sites->findOtherAll()->fetchAll());
+        $grid->addColumnNumber('id', 'id');
+        $grid->addColumnText('title', 'Název');
+        $grid->addColumnText('url', 'url');
+        $grid->addColumnNumber('active', 'aktivní');
+    }
 }

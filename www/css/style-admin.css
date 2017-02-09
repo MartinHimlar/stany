@@ -1,0 +1,9 @@
+#ajax-spinner {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    /* - use if you use bacground image, no ico */
+    /*background: url('../img/ajax_loader.gif') no-repeat;*/
+    z-index: 123456;
+    color: green;
+}

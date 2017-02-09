@@ -24,15 +24,29 @@ class SiteRepository extends Object
 		$this->db = $database;
 	}
 
+    /**
+     * @return \Nette\Database\Table\Selection
+     */
 	public function findAll()
 	{
 		return $this->db->table('sites');
 	}
 
+    /**
+     * @return mixed
+     */
+	public function findOtherAll()
+    {
+        return $this->findAll()
+            ->where('default', 0);
+    }
+
+    /**
+     * @return mixed
+     */
 	public function findOtherActive()
 	{
-		return $this->findAll()
-			->where('default', 0)
+		return $this->findOtherAll()
 			->where('active', 1);
 	}
 
@@ -54,7 +68,6 @@ class SiteRepository extends Object
 		if ($db->where('title', $values['title'])->fetch()) {
 			throw new SiteNotAddedException('Existující název stránky');
 		}
-
 		$db->insert($values);
 	}
 
