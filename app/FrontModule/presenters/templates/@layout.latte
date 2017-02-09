@@ -11,6 +11,9 @@
 		<link rel="stylesheet" href="{$basePath}/css/bootstrap.css?time={time()}">
 		<link rel="stylesheet" href="{$basePath}/css/style.css?time={time()}">
 
+		<!-- FancyBox -->
+		<link rel="stylesheet" type="text/css" href="{$basePath}/fancybox/jquery.fancybox.min.css">
+
 		<title>{ifset title}{include title|striptags} | {/ifset}PÁRTY STANY Valášek</title>
 		<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	{/block}
@@ -28,9 +31,12 @@
 					<a class="nav-link" href="#">Domů</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link nav-link-active" href="#">Fotogalerie</a>
+					<a class="nav-link" href="#gallery">Fotogalerie</a>
 				</li>
-				{if $isLogged}
+				<li class="nav-item active">
+					<a class="nav-link" href="#contact">Kontakt</a>
+				</li>
+				{*if $isLogged} //uncomment after administration ready
 				<li class="nav-item">
 					<span class="nav-link active">|</span>
 				</li>
@@ -40,7 +46,7 @@
 				<li class="nav-item active">
 					<a class="nav-link" n:href="Sign:out" title="administrace">Odhlásit</a>
 				</li>
-				{/if}
+				{/if*}
 			</ul>
 		</div>
 	</nav>
@@ -69,6 +75,12 @@
 		<script src="{$basePath}/js/bootstrap.js"></script>
 		<script src="{$basePath}/js/holder.min.js"></script>
 		<script src="{$basePath}/js/ie10-viewport-bug-workaround.js"></script>
+
+		<!-- FancyBox scripts -->
+		<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="{$basePath}/fancybox/jquery.fancybox.min.js"></script>
+		<script type="text/javascript" src="{$basePath}/js/main.js"></script>
+
 
 		<!-- GOOGLE ANALYTICS -->
 	<!--script>
