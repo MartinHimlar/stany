@@ -49,3 +49,20 @@ footer {
 	color: rgba(8, 13, 114, 0.79);
 	text-shadow: rgba(54, 72, 255, 0.58) 1px 1px 1px;
 }
+.card {
+	margin: auto;
+}
+
+.card:hover {
+	box-shadow: #0f0f11 0px 0px 5px;
+}
+
+.card > a > img {
+	opacity: 1;
+	border-radius: 5px;
+}
+
+.card > a > img:hover {
+	opacity: 0.95;
+	border-radius: 5px;
+}

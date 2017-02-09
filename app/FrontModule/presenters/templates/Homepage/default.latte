@@ -9,3 +9,40 @@
 		Ke každému zákazníkovi přistupujeme individuálně a přátelsky.
 		Stačí pouze zaslat poptávku na <a href="mailto:partystanyvalasek@email.cz" title="partystanyvalasek@email.cz">email</a> a my obratem zašleme nabídku šitou Vám na míru.
 	</p>
+	{if count($images) > 0}
+		<hr id="gallery" class="jumbotron-hr">
+		<h2>Fotogalerie</h2>
+		<hr class="jumbotron-hr">
+
+		{foreach $images["full"] as $image}
+			{if $iterator->isFirst()}
+				<div class="row">
+			{elseif ($iterator->getCounter()-1) % 4 == 0}
+				</div><div class="row">
+			{/if}
+
+				<div class="card">
+					<a href="{$basePath . $image}" data-fancybox="group">
+						<img src="{$basePath . $images['min'][$iterator->getCounter()-1]}" class="image" />
+					</a>
+				</div>
+			{if $iterator->isLast()}
+				</div>
+			{/if}
+		{/foreach}
+	{/if}
+
+
+	<hr id="contact" class="jumbotron-hr">
+	<h2>Kontakty</h2>
+	<hr class="jumbotron-hr">
+	<p>
+		Radim Valášek<br />
+		Vlasty Vlasákové 941/8<br />
+		700 30 Ostrava - Bělský Les<br />
+		IČ : 87898845, DIČ : CZ8710246050<br />
+		Air Bank a.s - č.ú. - 1260027028/3030<br />
+		<a data-fancybox href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.225085831313!2d18.24902341571201!3d49.7818319793887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713e4c5679735c3%3A0x815f75bfc8656b4c!2zVmxhc3R5IFZsYXPDoWtvdsOpIDk0MS84LCA3MDAgMzAgT3N0cmF2YS1qaWgtQsSbbHNrw70gTGVzLCDEjGVza28!5e0!3m2!1scs!2sus!4v1486664194371">
+			Zobrazit na mapě
+		</a>
+	</p>

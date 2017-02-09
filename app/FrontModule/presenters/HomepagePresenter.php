@@ -4,17 +4,23 @@ namespace App\FrontModule\Presenters;
 
 use App\SiteNotFoundException;
 use Nette;
+use Nette\Utils\Finder;
+use Nette\Utils\Image;
 
 class HomepagePresenter extends BasePresenter
 {
 
 	public function actionDefault()
 	{
-	    try{
-            $this->template->site = $this->sites->get(1);
-        } catch (SiteNotFoundException $e) {
-	        $this->redirect('Error:Default', new Nette\Application\BadRequestException('Page not found', 404, $e));
+
+        $images = [];
+        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR) as $filename => $fileObject) {
+            $images["full"][] = str_replace("C:\\wamp\\www\\stany\\www", "", $filename);
         }
+        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR . "min\\") as $filename => $fileObject) {
+            $images["min"][] = str_replace("C:\\wamp\\www\\stany\\www", "", $filename);
+        }
+        $this->template->images = $images;
 	}
 
 	public function renderContacts()
