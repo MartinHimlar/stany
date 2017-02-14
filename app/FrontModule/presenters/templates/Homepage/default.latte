@@ -20,10 +20,11 @@
 			{elseif ($iterator->getCounter()-1) % 4 == 0}
 				</div><div class="row">
 			{/if}
+			{var $path = $basePath . DIRECTORY_SEPARATOR . 'images'. DIRECTORY_SEPARATOR . 'gallery' . DIRECTORY_SEPARATOR}
 
 				<div class="card">
-					<a href="{$basePath . $image}" data-fancybox="group">
-						<img src="{$basePath . $images['min'][$iterator->getCounter()-1]}" class="image" />
+					<a href="{$path . $image}" data-fancybox="group">
+						<img src="{$path . $images['min'][$iterator->getCounter()-1]}" class="image" />
 					</a>
 				</div>
 			{if $iterator->isLast()}
@@ -38,7 +39,6 @@
 	<hr class="jumbotron-hr">
 	<p>
 		Radim Valášek<br />
-		Vlasty Vlasákové 941/8<br />
 		700 30 Ostrava - Bělský Les<br />
 		IČ : 87898845, DIČ : CZ8710246050<br />
 		Air Bank a.s - č.ú. - 1260027028/3030<br />

@@ -15,10 +15,10 @@ class HomepagePresenter extends BasePresenter
 
         $images = [];
         foreach (Finder::findFiles("*.*")->in(IMAGES_DIR) as $filename => $fileObject) {
-            $images["full"][] = str_replace("C:\\wamp\\www\\stany\\www", "", $filename);
+            $images["full"][] =  $fileObject->getFilename();
         }
-        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR . "min\\") as $filename => $fileObject) {
-            $images["min"][] = str_replace("C:\\wamp\\www\\stany\\www", "", $filename);
+        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR . "min/") as $filename => $fileObject) {
+            $images["min"][] = "min" . DIRECTORY_SEPARATOR . $fileObject->getFilename();
         }
         $this->template->images = $images;
 	}
