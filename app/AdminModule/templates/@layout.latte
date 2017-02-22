@@ -28,11 +28,20 @@
 
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				<li class="nav-item {ifCurrent Homepage:default}active{/ifCurrent}">
+					<a class="nav-link" n:href="Homepage:">Domů<span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
+					<span class="nav-link active">|</span>
+				</li>
+				<li class="nav-item {ifCurrent Homepage:other}active{/ifCurrent}">
+					<a class="nav-link" n:href="Homepage:other">Stránky</a>
+				</li>
+				<li class="nav-item">
+					<span class="nav-link active">|</span>
+				</li>
+				<li class="nav-item {ifCurrent Users:default}active{/ifCurrent}">
+					<a class="nav-link" n:href="Users:">Uživatelé</a>
 				</li>
 				<li class="nav-item">
 					<span class="nav-link active">|</span>

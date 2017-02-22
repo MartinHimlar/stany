@@ -44,14 +44,6 @@ class HomepagePresenter extends BasePresenter
 		}
 	}
 
-	public function actionOther()
-	{
-		/*$factory = new SitesGridFactory();
-		$dataSource = new SitesGridDataSource($this->sites);
-		$this->addComponent($factory->create($dataSource), 'sites');
-		$this->redrawControl('sites');*/
-	}
-
 	public function actionDeleteOther($id)
 	{
 		try {
@@ -64,9 +56,10 @@ class HomepagePresenter extends BasePresenter
 		}
 	}
 
-	public function handleAddOther($siteUrl)
+	public function handleAddOther($siteTitle)
 	{
-		$this['siteForm']['url']->setValue($siteUrl);
+	    $siteTitle = Nette\Utils\Strings::webalize($siteTitle);
+		$this['siteForm']['url']->setValue($siteTitle);
 		$this->redrawControl('formInput');
 	}
 
@@ -76,9 +69,12 @@ class HomepagePresenter extends BasePresenter
 
 		$form->addText('title', 'Název:')
 			->setHtmlId('siteTitle')
+            ->setAttribute('placeholder', 'název')
 			->setRequired('Název musí být vyplněn');
 
 		$form->addText('url', 'Adresa:')
+            ->setAttribute('placeholder', 'url')
+            ->setAttribute('class', 'form-control mb-2 mr-sm-2 mb-sm-0')
 			->setHtmlId('siteUrl');
 
 		$form->addTextArea('content')
@@ -86,7 +82,8 @@ class HomepagePresenter extends BasePresenter
 			->setRequired('Obsah musí být vyplněn');
 
 		$form->addCheckbox('active', 'Aktivní')
-		->setValue(TRUE);
+            ->setAttribute("class", "form-check-input")
+		    ->setValue(TRUE);
 
 		$form->addHidden('id', NULL);
 
@@ -130,5 +127,9 @@ class HomepagePresenter extends BasePresenter
         $grid->addColumnText('title', 'Název');
         $grid->addColumnText('url', 'url');
         $grid->addColumnNumber('active', 'aktivní');
+        $grid->addAction('editOther', 'upravit')
+            ->setClass('btn btn-primary btn-sm');
+        $grid->addAction('deleteOther', 'smazat')
+            ->setClass('btn btn-danger btn-sm');
     }
 }
