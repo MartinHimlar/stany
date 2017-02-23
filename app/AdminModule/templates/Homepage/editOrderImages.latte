@@ -1,0 +1,16 @@
+{block content}
+    <h3 n:inner-block="title">Editace pořadí obrázků</h3>
+    <a href="javascript:void(0);" class="btn btn-outline-primary reorder_link" id="save_reorder">start</a>
+    <div id="reorder-helper" class="light_box" style="display:none;">1. Přeřaď obrázky<br>2. Klikni na uložit</div>
+    <div class="gallery">
+        <ul class="reorder_ul reorder-photos-list">
+            {foreach $images as $image}
+                {var $filepath = $basePath . DIRECTORY_SEPARATOR . "images" . DIRECTORY_SEPARATOR . "gallery" . DIRECTORY_SEPARATOR . "min" . DIRECTORY_SEPARATOR. $image->filename}
+            <li id="image_li_{$image->id}" class="ui-sortable-handle">
+                <a href="javascript:void(0);" style="float:none;" class="image_link">
+                    <img src="{$filepath}" alt="{$image->title}">
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>

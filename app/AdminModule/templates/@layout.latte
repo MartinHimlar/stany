@@ -9,7 +9,7 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
-		<link rel="stylesheet" href="{$basePath}/css/style-admin.css?">
+		<link rel="stylesheet" href="{$basePath}/css/style-admin.css?aaa=time()">
 
 		<title>{ifset title}{include title|striptags} | {/ifset}PÁRTY STANY Valášek</title>
 		<link rel="shortcut icon" href="{$basePath}/favicon.ico">
@@ -80,6 +80,7 @@
 	<!--script src="{$basePath}/js/extensions/spinner.ajax.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="{$basePath}/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 	<script>
 		$(function () {
@@ -125,6 +126,39 @@
 			});
 		});
 	</script>
+	{ifCurrent Homepage:editOrderImages}
+		<script>
+            $(document).ready(function(){
+                $('.reorder_link').on('click',function(){
+                    $("ul.reorder-photos-list").sortable({ tolerance: 'pointer' });
+                    $('.reorder_link').html('Uložit');
+                    $('.reorder_link').attr("id","save_reorder");
+                    $('#reorder-helper').slideDown('slow');
+                    $('.image_link').attr("href","javascript:void(0);");
+                    $('.image_link').css("cursor","move");
+                    $("#save_reorder").click(function( e ){
+                        if( !$("#save_reorder i").length ){
+                            $("ul.reorder-photos-list").sortable('destroy');
+                            $("#reorder-helper").html( "Ukládám změny, nic nedělej!" ).removeClass('light_box').addClass('alert alert-danger');
+
+                            var h = [];
+                            $("ul.reorder-photos-list li").each(function() {  h.push($(this).attr('id').substr(9));  });
+
+
+                            $.nette.ajax({
+                                url: {link saveOrderImages!},
+                                data: {
+                                    'data': JSON.stringify(h,":",1)
+                                }
+                            });
+                            return false;
+                        }
+                        e.preventDefault();
+                    });
+                });
+            });
+		</script>
+	{/ifCurrent}
 	{/block}
 </body>
 </html>

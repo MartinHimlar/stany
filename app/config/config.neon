@@ -16,3 +16,5 @@ services:
 	UserManager: App\Users\UserManager
 	Authenticator: App\UserManager\Authenticator
 	SiteRepository: Sites\SiteRepository
+	PhotogalleryRepository: Photogallery\photogalleryRepository
+	PhotogalleryManager: Photogallery\photogalleryManager
