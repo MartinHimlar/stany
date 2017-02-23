@@ -137,6 +137,12 @@ class HomepagePresenter extends BasePresenter
             ->setAttribute("class", "form-check-input")
 		    ->setValue(TRUE);
 
+		$form->addText('order', 'Pozice')
+            ->setAttribute('class', 'form-control')
+            ->setValue(999)
+            ->addRule(Form::INTEGER, 'Pořadí musí být číslo')
+            ->setRequired('Pořadí musí být vyplněno');
+
 		$form->addHidden('id', NULL);
 
 		$form->addText('map_url', 'odkaz URL mapy:');
@@ -179,6 +185,7 @@ class HomepagePresenter extends BasePresenter
         $grid->addColumnText('title', 'Název');
         $grid->addColumnText('url', 'url');
         $grid->addColumnNumber('active', 'aktivní');
+        $grid->addColumnNumber('order', 'pořadí');
         $grid->addAction('editOther', 'upravit')
             ->setClass('btn btn-primary btn-sm');
         $grid->addAction('deleteOther', 'smazat')
