@@ -92,7 +92,7 @@
 					}
 				});
 			});
-
+            {ifCurrent Homepage:*}
 			$('#siteTitle').change(function() {
 				$.nette.ajax({
 					url: {link addOther!},
@@ -101,7 +101,7 @@
 					}
 				});
 			});
-
+            {/ifCurrent}
 			tinymce.init({
 				selector: "#siteTextarea",
 				theme: "modern",

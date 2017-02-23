@@ -6,6 +6,7 @@ use App\UserNotFoundException;
 use Nette;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
+use Ublaboo\DataGrid\DataGrid;
 
 class UsersPresenter extends BasePresenter
 {
@@ -41,21 +42,11 @@ class UsersPresenter extends BasePresenter
 		$this['editUserForm']->setDefaults($user);
 	}
 
-	public function handleChangePublic($id)
+	public function actionChangePublic($id)
 	{
 		$this->users->changeUserPublic($id);
-		!$this->isAjax() && $this->flashMessage('Zveřejnění uživatele bylo úspěšně změněno.', 'success');
-		$this->template->row = $this->users->findUser($id);
-		$this->invalidateControl('userInfo');
-		$this->invalidateControl('flashes');
-	}
-
-	public function actionDefault()
-	{
-		$factory = new UsersGridFactory();
-		$dataSource = new UsersGridDataSource($this->users);
-		$this->addComponent($factory->create($dataSource), 'grid');
-		$this->redrawControl('grid');
+		$this->flashMessage('Uživatel byl úspěšně změněn.', 'success');
+		$this->redirect('default');
 	}
 
 	public function createComponentNewUserForm()
@@ -74,15 +65,11 @@ class UsersPresenter extends BasePresenter
 			->addRule(Form::EMAIL, 'Zadali jste neplatný email platný email');
 		$form->addText('name', 'Jméno');
 		$form->addText('surname', 'Příjmení');
-		$form->addSelect('role_id', 'Oprávnění')
-			->setItems($this->users->getRoles())
-			->setPrompt('Vyber')
-			->setRequired('Musíte vybrat oprávnění uživatele!');
 
 		$form->addSubmit('send', 'uložit')
 			->setAttribute('class', 'btn btn-primary');
 
-		$form->onSuccess[] = callback($this, 'newUserFormSubmitted');
+		$form->onSuccess[] = array($this, 'newUserFormSubmitted');
 
 		return $form;
 	}
@@ -101,11 +88,6 @@ class UsersPresenter extends BasePresenter
 			->setAttribute('class','form-control');
 		$form->addText('surname', 'Příjmení')
 			->setAttribute('class','form-control');
-		$form->addSelect('role_id', 'Oprávnění')
-			->setItems($this->users->getRoles())
-			->setPrompt('Vyber')
-			->setRequired('Musíte vybrat oprávnění uživatele!')
-			->setAttribute('class','form-control');
 		$form->addHidden('id');
 
 		$form->addSubmit('send', 'uložit')
@@ -116,7 +98,7 @@ class UsersPresenter extends BasePresenter
 			$this->redirect('default');
 		};
 
-		$form->onSuccess[] = callback($this, 'editUserFormSubmitted');
+		$form->onSuccess[] = array($this, 'editUserFormSubmitted');
 
 		return $form;
 	}
@@ -156,5 +138,25 @@ class UsersPresenter extends BasePresenter
 		}
 		$this->redirect('default');
 	}
+
+
+
+    protected function createComponentUsersGrid($name)
+    {
+        $grid = new DataGrid($this, $name);
+        $grid->setPrimaryKey('id');
+        $grid->setDataSource($this->users->getAll()->fetchAll());
+        $grid->addColumnNumber('id', 'id');
+        $grid->addColumnText('name', 'jméno');
+        $grid->addColumnText('surname', 'příjmení');
+        $grid->addColumnText('nickname', 'přezdívka');
+        $grid->addColumnNumber('public', 'aktivní');
+        $grid->addAction('edit', 'editace')
+            ->setClass('btn btn-primary btn-sm');
+        $grid->addAction('changePublic', 'aktivace/deaktivace')
+            ->setClass('btn btn-warning btn-sm');
+        $grid->addAction('delete', 'smazat')
+            ->setClass('btn btn-danger btn-sm');
+    }
 
 }

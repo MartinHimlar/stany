@@ -15,8 +15,7 @@ class SignPresenter extends BasePresenter
 	{
 		parent::startup();
 		if ($this->user->loggedIn) {
-			$this->flashMessage('Někde je chyba, už jste přihlášení :)', 'info');
-			$this->redirect('Homepage:default');
+			$this->redirect(':Admin:Homepage:default');
 		}
 	}
 
@@ -24,7 +23,6 @@ class SignPresenter extends BasePresenter
 	public function actionOut()
 	{
 		$this->getUser()->logout();
-		$this->flashMessage('Byli jste úspěšně odhlášeni.');
 		$this->redirect('Homepage:Default');
 	}
 

@@ -52,7 +52,7 @@ class BasePresenter extends \BasePresenter
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
-			$this->redirect('Homepage:');
+			$this->redirect(':Admin:Homepage:default');
 
 		} catch (AuthenticationException $e) {
 			$form->addError('Neplatné uživatelské jméno nebo heslo');

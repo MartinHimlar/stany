@@ -1,6 +1,8 @@
 {block #title}Uživatelé{/block}
 
 {block content}
-{snippet grid}
-{control grid}
-{/snippet}
+    <a n:href="add" title="nový uživatel" class="btn btn-outline-primary">Nový uživatel</a>
+    <hr />
+    {snippet grid}
+        {control usersGrid}
+    {/snippet}
