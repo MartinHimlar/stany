@@ -43,10 +43,9 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 		} elseif (!$row->public) {
 			throw new AuthenticationException('Váš uživatelský účet byt deaktivován. Kontaktuje nás prosím.');
 		}
-		$role = $row->ref('role_id')->title;
 
 		$arr = $row->toArray();
 		unset($arr['password']);
-		return new Nette\Security\Identity($row->id, $role, $arr);
+		return new Nette\Security\Identity($row->id, NULL, $arr);
 	}
 }
