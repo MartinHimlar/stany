@@ -1,19 +1,11 @@
-{block title}Hlavní stránka{/block}
+{block title}{$site->title}{/block}
 {block content}
-	<p>
-		Dovolujeme si Vám nabídnout párty stany vhodné pro zastřešení Vašich akcí.<br /><br />
-		Stany jsou vhodné pro výstavy a veletrhy, firemní prezentace, showroomy, městské či obecní akce,
-		oslavy, svatby, VIP akce. K zajištění přístřeší pro diváky na festivalech, sportovních či kulturních akcích.
-		Mohou sloužit i jako skladovací prostory nebo zastřešení staveb nebo stavebního materiálu.<br/><br/>
-		Ke každému zákazníkovi přistupujeme individuálně a přátelsky.
-		Stačí pouze zaslat poptávku na <a href="mailto:partystanyvalasek@email.cz" title="partystanyvalasek@email.cz">email</a> a my obratem zašleme nabídku šitou Vám na míru.
-	</p>
-	{if count($images) > 0}
+	{if $site->id == 3} <!-- photogallery -->
 		<hr id="gallery" class="jumbotron-hr">
 		<h2>Fotogalerie</h2>
 		<hr class="jumbotron-hr">
 
-		{foreach $images["full"] as $image}
+		{foreach $images as $title => $filename}
 			{if $iterator->isFirst()}
 				<div class="row">
 			{elseif ($iterator->getCounter()-1) % 4 == 0}
@@ -22,90 +14,19 @@
 			{var $path = $basePath . DIRECTORY_SEPARATOR . 'images'. DIRECTORY_SEPARATOR . 'gallery' . DIRECTORY_SEPARATOR}
 
 				<div class="card">
-					<a href="{$path . $image}" data-fancybox="group">
-						<img src="{$path . $images['min'][$iterator->getCounter()-1]}" class="image" />
+					<a href="{$path . $filename}" data-fancybox="group" title="{$title}">
+						<img src="{$path . "min" . DIRECTORY_SEPARATOR . $filename}" class="image" alt="{$title}" />
 					</a>
 				</div>
 			{if $iterator->isLast()}
 				</div>
 			{/if}
 		{/foreach}
-	{/if}
-
-	<hr id="price" class="jumbotron-hr">
-	<h2>Ceník</h2>
-	<hr class="jumbotron-hr">
-	<table class="table">
-		<thead class="thead-default">
-			<tr>
-				<th>Velikost stanu</th><th>Cena za m&#178;</th><th>Cena</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>10x5 m (50m&#178;)</td><td>120 Kč/m&#178;</td><td>6 000 Kč</td>
-			</tr>
-			<tr>
-				<td>10x10 m (100m&#178;)</td><td>110 Kč/m&#178;</td><td>11 000 Kč</td>
-			</tr>
-			<tr>
-				<td>10x15 m (150m&#178;)</td><td>105 Kč/m&#178;</td><td>15 750 Kč</td>
-			</tr>
-			<tr>
-				<td>10x20 m (200m&#178;)</td><td>100 Kč/m&#178;</td><td>20 000 Kč</td>
-			</tr>
-			<tr>
-				<td>10x25 m (250m&#178;)</td><td>95 Kč/m&#178;</td><td>23 750 Kč</td>
-			</tr>
-			<tr>
-				<td>10x30 m (300m&#178;)</td><td>90 Kč/m&#178;</td><td>27 000 Kč</td>
-			</tr>
-		</tbody>
-	</table>
-	<div style="font-size: 14px;">
-		<div class="text-center">
-			<b><u>Veškeré ceny jsou uvedeny bez DPH a mohou se měnit dle dohody s klientem.</u></b>
-		</div>
-
-		<div>
-		<p>
-			<b>Dlouhodobý pronájem</b><br />
-			Za dlouhodobý pronájem jsou považovány 4 dny a více, cena je řešena individuálně.
-		</p>
-		<p>
-			<b>Cena zahrnuje</b><br />
-			Montáž, kotvení, pronájem, demontáž, při dlouhodobém pronájmu kontrola stavu stanu.
-		</p>
-		<p>
-			<b>Cena nezahrnuje</b><br />
-			Dopravu, extrémní čištění.
-		</p>
-		<p>
-			<b>Doprava</b> (účtuje se k ceně stanu po akci, dle reálně odjetých km, sklad v Ostravě Radvanicích)<br/>
-			Iveco Daily: 10 Kč/km<br />
-			Man 12t, DAF 12t: 20 Kč/km (používá se při větším množství stanů)<br />
-			Montážní tým: 6 Kč/km (používá se při větším množství stanů)
-		</p>
-		<p>
-			<b>Doplňkové vybavení</b><br />
-			Podlaha, koberce: dle dohody<br />
-			Pronájem topení: 1600 Kč (včetně plynové náplně)<br />
-			Zábrana 2x1 metr: 100 Kč /ks<br />
-			Stůl a 2 lavice pro 8 os.: 150Kč/ks<br />
-			Zářivkové osvětlení: 150 Kč/ks
-		</p>
-		</div>
-	</div>
-
-	<hr id="contact" class="jumbotron-hr">
-	<h2>Kontakty</h2>
-	<hr class="jumbotron-hr">
-	<p>
-		Radim Valášek<br />
-		+420 734 159 520<br />
-		<a href="mailto:partystanyvalasek@email.cz" title="partystanyvalasek@email.cz">partystanyvalasek@email.cz</a><br />
-		IČ : 87898845, DIČ : CZ8710246050<br />
-		<a data-fancybox href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2574.3116302256617!2d18.317382015713395!3d49.817807879393065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713fcbe6440612d%3A0x56a54d9a6f62d32d!2zUMOBUlRZIFNUQU5ZIFZhbMOhxaFlaw!5e0!3m2!1scs!2scz!4v1487242030481">
+	{elseif $site->id === 2} <!-- contacts -->
+        {$site->content|noescape}
+		<a data-fancybox href="{$site->map_url}">
 			Zobrazit na mapě
 		</a>
-	</p>
+	{else} <!-- Main page and other pages -->
+		{$site->content|noescape}
+	{/if}

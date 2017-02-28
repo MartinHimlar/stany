@@ -50,16 +50,48 @@ class SiteRepository extends Object
 			->where('active', 1);
 	}
 
+    /**
+     * @return array['order'] => 'title'
+     */
+	public function findMenuItems()
+    {
+        return $this->findAll()
+            ->where('active', 1)
+            ->order('order')
+            ->fetchPairs('id', 'title');
+    }
+
+    /**
+     * return array of url sites
+     * @return array['id'] => 'url'
+     */
+    public function findForRouter()
+    {
+        return $this->findAll()
+            ->fetchPairs('id', 'url');
+    }
+
 	public function get($id)
 	{
 		$row = $this->findAll()->where('id', $id)->fetch();
 
-		/*if (!$row) {
+		if (!$row) {
 			throw new SiteNotFoundException('Stránka nenalezena');
-		}*/
+		}
 
 		return $row;
 	}
+
+    public function getActive($id)
+    {
+        $row = $this->get($id);
+
+        if (!$row || $row->active == FALSE) {
+            throw new SiteNotFoundException('Stránka nenalezena');
+        }
+
+        return $row;
+    }
 
 	public function add($values)
 	{
@@ -79,6 +111,9 @@ class SiteRepository extends Object
 		if ($db->where('title', $values['title'])->where('id NOT LIKE', $values['id'])->fetch()) {
 			throw new SiteNotAddedException('Existující název stránky');
 		}
+		if ($values['id'] === (1 || 2 || 3)) {
+		    $values['active'] = 1;
+        }
 		$selection->where('id', $values['id'])->update($values);
 	}
 

@@ -32,6 +32,18 @@ class photogalleryManager extends Object
     }
 
     /**
+     * return array of images
+     * @return array['title'] => 'filename'
+     */
+    public function findForFront()
+    {
+        return $this->repository->find()
+            ->where('active', 1)
+            ->order('order')
+            ->fetchPairs('title', 'filename');
+    }
+
+    /**
      * delete image by id
      * @param $id
      */

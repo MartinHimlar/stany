@@ -17,7 +17,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$this->sites = $sites;
 	}
 
-	public function flashMessage($message, $type = 'info')
+	public function startup()
+    {
+        parent::startup();
+        $this->template->menu = $this->sites->findMenuItems();
+    }
+
+    public function flashMessage($message, $type = 'info')
 	{
 		switch ($type) {
 			case 'error':
