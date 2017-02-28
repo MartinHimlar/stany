@@ -3,24 +3,33 @@
 namespace App\FrontModule\Presenters;
 
 use App\SiteNotFoundException;
-use Nette;
-use Nette\Utils\Finder;
-use Nette\Utils\Image;
+use Photogallery\photogalleryManager;
 
 class HomepagePresenter extends BasePresenter
 {
+    /**
+     * @inject
+     * @var photogalleryManager
+     */
+    public $photogallery;
 
-	public function actionDefault()
+	public function actionDefault($id = NULL)
 	{
+	    try {
+	        if (count($id) < 1) { // wow, homepage hack :o)
+	            $id = 1;
+            }
+            $site = $this->sites->getActive($id);
+            $this->template->site = $site;
+            if ((int) $id === 3) { //photogallery
+                $this->template->images = $this->photogallery->findForFront();
+            }
+        } catch (SiteNotFoundException $e) {
+	        $this->error('Stránka nenalezena!', 404);
+        }
 
-        $images = [];
-        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR) as $filename => $fileObject) {
-            $images["full"][] =  $fileObject->getFilename();
-        }
-        foreach (Finder::findFiles("*.*")->in(IMAGES_DIR . "min/") as $filename => $fileObject) {
-            $images["min"][] = "min" . DIRECTORY_SEPARATOR . $fileObject->getFilename();
-        }
-        $this->template->images = $images;
+
+
 	}
 
 	public function renderContacts()

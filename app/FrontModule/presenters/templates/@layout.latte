@@ -27,29 +27,7 @@
 		<a class="navbar-brand" n:href="default">PÁRTY STANY Valášek</a>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Domů</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="#gallery">Fotogalerie</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="#price">Ceník</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="#contact">Kontakt</a>
-				</li>
-				{*if $isLogged} //uncomment after administration ready
-				<li class="nav-item">
-					<span class="nav-link active">|</span>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" n:href=":Admin:Homepage:" title="administrace">Administrace</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" n:href="Sign:out" title="administrace">Odhlásit</a>
-				</li>
-				{/if*}
+                {include _include/@desktop_menu.latte}
 			</ul>
 		</div>
 	</nav>
@@ -67,7 +45,7 @@
 	<hr class="featurette-divider">
 
 	<footer>
-		<p>Vytvořil Martin Himlar pro PÁRTY STANY Valášek</p>
+		<p>Vytvořil <a href="m.himlar@gmail.com" alt="m.himlar@gmail.com">Martin Himlar</a> pro PÁRTY STANY Valášek</p>
 	</footer>
 
 
