@@ -111,8 +111,8 @@ class SiteRepository extends Object
 		if ($db->where('title', $values['title'])->where('id NOT LIKE', $values['id'])->fetch()) {
 			throw new SiteNotAddedException('Existující název stránky');
 		}
-		if ($values['id'] === (1 || 2 || 3)) {
-		    $values['active'] = 1;
+		if ((int) $values['id'] === 1 || (int) $values['id'] === 2 || (int) $values['id'] === 3) {
+		    $values['active'] = TRUE;
         }
 		$selection->where('id', $values['id'])->update($values);
 	}
